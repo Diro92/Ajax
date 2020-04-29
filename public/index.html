@@ -1,0 +1,194 @@
+<html>
+<head>
+<!-- Latest compiled and minified CSS -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- Latest compiled JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+
+
+    <div class="left">
+      <label for="exampleFormControlSelect1">The language is:</label>
+       <!-- Example single danger button -->
+       <div class="dropdown">
+        <button type="button" id="Options" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Languages
+        </button>
+        <div class="dropdown-menu" id="Menu">
+          <a class="dropdown-item" href="#">German</a>
+          <a class="dropdown-item" href="#">Russian</a>
+          <a class="dropdown-item" href="#">English</a>
+          <a class="dropdown-item" href="#">Portugues</a>
+          <a class="dropdown-item" href="#">French</a>
+        </div>
+      </div>
+      <br>
+
+
+    <hr>
+        <label for="About">Show me information about:</label>
+        <select class="form-control" id="About">
+          <option value="Notvalue">Select one</option>
+          <option value="Verbs">Verbs</option>
+          <option value="Nouns">Nouns</option>
+          <option value="Adjectives">Adjectives</option>
+          <option value="Phrases">Phrases</option>
+        </select>
+    <br>
+    <button type="button" class="btn btn-primary" id="See">See</button>
+    </div>
+
+    <!-- Example single danger button -->
+
+    <div class="right"></div>
+</body>
+</html>
+
+<script>
+var source;
+var method;
+$('.dropdown').click(function(){
+  $('.dropdown-menu').toggleClass('show');
+});
+$('#Menu a').on('click', function(){
+     source = $(this).html();   $('#Options').text(source);
+});
+
+var a;
+var url = 'http://localhost:3000/Database'
+var method = 'GET'
+var results;
+var html;
+var y;
+//------------------------------------------------------------------//
+$("#See").click(function(){
+    a= $("#About").val();
+
+    switch(source){
+
+    case "English":
+
+          RequestEnglish(url,method,a)
+
+
+    break;
+    case "German":
+
+    break;
+    case "Russian":
+
+    break;
+    case "Portuguese":
+
+    break;
+    case "French":
+
+    break;
+
+
+   }
+}
+)
+
+function RequestEnglish(url, meth, a){
+
+    if(a =='Verbs'){
+         y = 0;
+        $.ajax({
+        url:url,
+        method:meth,
+    }).done((data)=>{
+        results = data[0].Verbs;
+        html = '<h1>Verbs</h1>'
+        for(var x=0;x<results.length;x++){
+
+        html+= data[0].Verbs[x].id+ '.' + data[0].Verbs[x].Verb + '<br>'
+        }
+        $(".right").html(html);
+    }).fail(error=>{console.log(error)})
+
+    }else if(a =='Nouns'){
+         y = 1;
+        $.ajax({
+        url:url,
+        method:meth,
+    }).done((data)=>{
+        results = data[1].Nouns;
+        html = '<h1>Nouns</h1>'
+        for(var x=0;x<results.length;x++){
+            
+        html+= data[y].Nouns[x].id+ '.' + data[y].Nouns[x].Verb + '<br>'
+        }
+        $(".right").html(html);
+    }).fail(error=>{console.log(error)})
+
+    }else if(a =='Adjectives'){
+       
+        y=2;
+        $.ajax({
+        url:url,
+        method:meth,
+     }).done((data)=>{
+        
+        results = data[2].Adjetives;
+        html = '<h1>Adjectives</h1>'
+        for(var x=0;x<results.length;x++){
+            
+        html+= data[y].Adjetives[x].id+ '.' + data[y].Adjetives[x].Verb + '<br>'
+        }
+        $(".right").html(html);
+     }).fail(error=>{console.log(error)})
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+//-------------------------------------------------------------------//
+
+
+
+
+</script>
+<style>
+.left{
+    float: left;
+    width: 30%;
+    border:solid black;
+    height: 100%;
+    padding: 1%;
+}
+.right{
+
+    float: left;
+    width: 69%;
+    border:solid blue;
+    height: 100%;
+    padding: 2%;
+}
+.form-control{
+
+    width: 200px;;
+
+}
+
+
+</style>

@@ -1,0 +1,83 @@
+{
+  "Database": [
+
+    { 
+      "Verbs":[
+
+        {
+          "id":1,
+          "Verb":"To run"      
+        },
+        {
+          "id":2,
+          "Verb":"To go"      
+        },
+        {
+          "id":3,
+          "Verb":"To speak"      
+        }
+      ]
+    },
+    { 
+
+      "Nouns":[
+
+        {
+          "id":1,
+          "Verb":"To Sing"      
+        },
+        {
+          "id":2,
+          "Verb":"To Sing"      
+        },
+        {
+          "id":3,
+          "Verb":"To Sing"      
+        },
+        {
+          "id":4,
+          "Verb":"To Sing"      
+        },
+        {
+          "id":5,
+          "Verb":"To Sing"      
+        }
+      ]
+    },
+    { 
+      "Adjetives":[
+
+        {
+          "id":1,
+          "Verb":"Tall"      
+        },
+        {
+          "id":2,
+          "Verb":"Stupid"      
+        },
+        {
+          "id":3,
+          "Verb":"Smart"      
+        }
+      ]
+    },
+    { 
+      "Phrases":[
+
+        {
+          "id":1,
+          "Verb":"To run"      
+        },
+        {
+          "id":2,
+          "Verb":"To run"      
+        },
+        {
+          "id":3,
+          "Verb":"To run"      
+        }
+      ]
+    }
+
+  ]
+}

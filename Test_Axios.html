@@ -1,0 +1,52 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<div class="right">
+
+
+</div>
+<button class="btn btn-info" id="See">See complete Information</button>
+
+<script>
+
+$("#See").click(function(){
+    var url = 'http://localhost:3000/posts';
+    axios.get(url)
+    .then(function(data){
+        var results = data;
+            var html='<h1>Values</h1>'
+            for(var x=0;x<results.length;x++){
+                
+                    html+=results[x].id + '.' + 
+                    results[x].title + '<br>'
+            }
+            $('.right').html(html)
+    }).catch(error =>{
+        
+        console.log('The error is'+error);
+    })
+})
+
+
+
+</script>
+
+<style>
+.right{
+   
+   float: left;
+   width: 49%;
+   border:solid blue;
+   height: 50%;
+   padding: 2%;    
+}
+
+</style>
