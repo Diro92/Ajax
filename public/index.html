@@ -1,12 +1,12 @@
 <html>
 <head>
-<!-- Latest compiled and minified CSS -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<!-- Latest compiled JavaScript -->
+    <!-- Latest compiled JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
@@ -42,7 +42,29 @@
           <option value="Phrases">Phrases</option>
         </select>
     <br>
-    <button type="button" class="btn btn-primary" id="See">See</button>
+      <button type="button" class="btn btn-primary" id="See">See</button>
+    <hr>
+    <label for="About">Save information in:</label>
+        <select class="form-control" id="SaveValues">
+          <option value="Notvalue">Select one</option>
+          <option value="Verbs">Verbs</option>
+          <option value="Nouns">Nouns</option>
+          <option value="Adjectives">Adjectives</option>
+          <option value="Phrases">Phrases</option>
+        </select>
+  
+    <br>
+    <form>
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" id="vl1" name="vl1">
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Last name">
+          </div>
+        </div>
+      </form>
+      <button type="button" class="btn btn-primary" id="Save">Save</button>  
     </div>
 
     <!-- Example single danger button -->
@@ -60,7 +82,7 @@ $('.dropdown').click(function(){
 $('#Menu a').on('click', function(){
      source = $(this).html();   $('#Options').text(source);
 });
-
+//------------------------
 var a;
 var url = 'http://localhost:3000/Database'
 var method = 'GET'
@@ -76,7 +98,6 @@ $("#See").click(function(){
     case "English":
 
           RequestEnglish(url,method,a)
-
 
     break;
     case "German":
@@ -97,7 +118,7 @@ $("#See").click(function(){
 }
 )
 
-function RequestEnglish(url, meth, a){
+function RequestEnglish(url, meth='post', a){
 
     if(a =='Verbs'){
          y = 0;
@@ -146,14 +167,102 @@ function RequestEnglish(url, meth, a){
         $(".right").html(html);
      }).fail(error=>{console.log(error)})
 
+    }else if(a=='Phrases'){
+        y=3;
+        $.ajax({
+        url:url,
+        method:meth,
+     }).done((data)=>{
+        
+        results = data[3].Phrases;
+        html = '<h1>Phrases</h1>'
+        for(var x=0;x<results.length;x++){
+            
+        html+= data[y].Phrases[x].id+ '.' + data[y].Phrases[x].Verb + '<br>'
+        }
+        $(".right").html(html);
+     }).fail(error=>{console.log(error)})
     }
-
-
-
-
 }
+    function SaveInfo(url,met,S){
+        if(a =='Verbs'){
+         y = 0;
+        $.ajax({
+        url:url,
+        method:meth,
+    }).done((data)=>{
+        results = data[0].Verbs;
+        html = '<h1>Verbs</h1>'
+        for(var x=0;x<results.length;x++){
+
+        html+= data[0].Verbs[x].id+ '.' + data[0].Verbs[x].Verb + '<br>'
+        }
+        $(".right").html(html);
+    }).fail(error=>{console.log(error)})
+
+    }else if(a =='Nouns'){
+         y = 1;
+        $.ajax({
+        url:url,
+        method:meth,
+    }).done((data)=>{
+        results = data[1].Nouns;
+        html = '<h1>Nouns</h1>'
+        for(var x=0;x<results.length;x++){
+            
+        html+= data[y].Nouns[x].id+ '.' + data[y].Nouns[x].Verb + '<br>'
+        }
+        $(".right").html(html);
+    }).fail(error=>{console.log(error)})
+
+    }else if(a =='Adjectives'){
+       
+        y=2;
+        $.ajax({
+        url:url,
+        method:meth,
+     }).done((data)=>{
+        
+        results = data[2].Adjetives;
+        html = '<h1>Adjectives</h1>'
+        for(var x=0;x<results.length;x++){
+            
+        html+= data[y].Adjetives[x].id+ '.' + data[y].Adjetives[x].Verb + '<br>'
+        }
+        $(".right").html(html);
+     }).fail(error=>{console.log(error)})
+
+    }else if(a=='Phrases'){
+        y=3;
+        $.ajax({
+        url:url,
+        method:meth,
+     }).done((data)=>{
+        
+        results = data[3].Phrases;
+        html = '<h1>Phrases</h1>'
+        for(var x=0;x<results.length;x++){
+            
+        html+= data[y].Phrases[x].id+ '.' + data[y].Phrases[x].Verb + '<br>'
+        }
+        $(".right").html(html);
+     }).fail(error=>{console.log(error)})
+    }
+}
+var b;
+
+$('#SaveValues select').click(function() {
+    alert("this.selected.text()");
+});
+
+$("#Save").click(()=>{
+    b=$("#SaveValues").val();
+    $('input[name=vl1]').attr("placeholder","Write the value of " + b);
+    switch(b){
 
 
+    }
+})
 
 
 
